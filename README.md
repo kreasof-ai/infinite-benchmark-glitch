@@ -8,7 +8,7 @@ This repository contains the code and documentation for the **Dynamic N-Dimensio
 
 The DNDGR benchmark challenges LLMs to learn and generalize from in-context examples of sequences generated from an n-dimensional grid of words (or other symbols). The complexity of the task can be dynamically adjusted by varying the dimensionality of the grid, its size, the sequence generation rules, and the level of noise. This makes it virtually impossible for models to "cheat" by memorizing solutions and allows for a continuous assessment of LLMs' abilities as they improve.
 
-**This benchmark is inspired by the paper "[Paper Title]" ([Link to arXiv or other preprint server if available]).**
+**This benchmark is inspired by the paper ["ICLR: In-Context Learning of Representations"](https://arxiv.org/abs/2501.00070).**
 
 ## Why DNDGR?
 
