@@ -109,6 +109,24 @@ The `config.yaml` file allows you to customize various aspects of the benchmark:
 *   `target_accuracy`: Target accuracy for convergence tests.
 *   `num_trials`: Number of trials to run for each setting.
 
+## Limitations
+
+### Dependency on Pure Autoregressive Inference
+
+The DNDGR benchmark is designed to evaluate the in-context learning capabilities of LLMs operating in a **purely autoregressive, sequential generation mode, without access to external tools or the ability to modify their prompt**. This is a crucial constraint. 
+
+**LLMs that can generate code to search within the context or retrieve information from external sources could potentially "cheat" on this benchmark by simply looking up the answers in the provided examples, rather than learning the underlying relationships between words in the grid.**
+
+Therefore, the DNDGR benchmark, in its current form, is **most suitable for evaluating models that operate solely based on the provided context and generate text sequentially without external tool use.** It might not accurately assess the in-context learning abilities of models that deviate from this pure autoregressive paradigm.
+
+### Mitigation Strategies
+
+While this limitation cannot be entirely eliminated without fundamentally altering the way LLMs are used, we suggest the following to mitigate its impact:
+1. **Careful Model Selection:** Prioritize the evaluation on LLMs known to be primarily autoregressive and not designed for external tool use. Report if any external tool is used.
+2. **Transparency:**  Clearly state in the reported results whether the evaluated models adhere to the pure autoregressive constraint.
+
+We acknowledge this limitation and encourage the community to explore alternative benchmark designs that are robust to these challenges. Future work could also involve developing methods for detecting and preventing such "cheating" behaviors during evaluation.
+
 ## Contributing
 
 We welcome contributions to the DNDGR benchmark! If you have any ideas for improvements or new features, please feel free to open an issue or submit a pull request.
