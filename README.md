@@ -125,7 +125,7 @@ If you use this benchmark in your research, please cite:
 @article{dndgrbenchmark,
   title={We Found an Infinite Benchmark Glitch: Dynamic N-Dimensional Grid Regression (DNDGR) Benchmark},
   author={Habibullah Akbar},
-  year={2024},
+  year={2025},
 }
 ```
 
