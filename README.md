@@ -127,6 +127,47 @@ While this limitation cannot be entirely eliminated without fundamentally alteri
 
 We acknowledge this limitation and encourage the community to explore alternative benchmark designs that are robust to these challenges. Future work could also involve developing methods for detecting and preventing such "cheating" behaviors during evaluation.
 
+## **Secondary Challenge: Efficient Pathfinding**
+
+1. **Task Definition:**
+    *   **Start and End Words:**  Specify a starting word and an ending word within the grid.
+    *   **Goal:** The LLM must generate a sequence of words that represents the most efficient path (i.e., the shortest path in terms of the number of steps) from the start word to the end word, following the allowed movement rules.
+    *   **Constraints:** The path must adhere to the grid's structure and the defined movement rules (e.g., only moving to adjacent cells in the allowed dimensions).
+
+2. **Evaluation:**
+    *   **Path Validity:** Check if the generated path is valid (i.e., it starts at the start word, ends at the end word, and follows the movement rules).
+    *   **Path Length:**  If the path is valid, calculate its length (the number of steps).
+    *   **Optimality:** Compare the length of the generated path to the length of the actual shortest path (which can be computed using standard graph search algorithms like Breadth-First Search).
+    *   **Metrics:**
+        *   **Success Rate:** The percentage of trials where the LLM generates a valid path.
+        *   **Optimality Ratio:** The ratio of the length of the generated path to the length of the shortest path (a value of 1 indicates a perfect solution).
+        *   **Path Length:** The average length of the generated paths (for successful trials).
+
+### **Why This Makes Cheating Harder:**
+
+*   **Requires Planning:**  Finding the *most efficient* path requires more than just looking up neighboring words. The LLM needs to plan ahead and consider multiple possible paths, ideally performing some kind of search or optimization in its "head."
+*   **Difficult to Brute Force:**  In higher-dimensional grids with larger sizes, the number of possible paths between two words becomes enormous, making it computationally infeasible for the LLM to simply generate all possible paths and check their lengths, especially not by external code execution.
+*   **Grid Reconstruction Still Insufficient:** Even if an LLM could reconstruct the grid perfectly through code execution (which is already difficult), it would still need to solve the shortest path problem, which is a non-trivial algorithmic challenge.
+*   **More Complex Reasoning:** This task requires a more sophisticated form of reasoning than simply predicting the next word in a sequence. The model needs to understand the concept of distance, direction, and optimality in the context of the grid.
+
+### **Example:**
+
+In a 2D grid, if the start word is at coordinates (1, 1) and the end word is at (4, 5), the LLM would need to generate a path like:
+
+`(1, 1) -> (2, 1) -> (3, 1) -> (4, 1) -> (4, 2) -> (4, 3) -> (4, 4) -> (4, 5)`
+
+This is just one possible shortest path (length 7). There could be others, but a random or inefficient path would be longer.
+
+### **Implementation Details:**
+
+*   **Path Representation:** The LLM could output the path as a sequence of words or as a sequence of coordinates.
+*   **Shortest Path Calculation:** You'll need to implement a standard graph search algorithm (e.g., Breadth-First Search) to compute the actual shortest paths for comparison.
+*   **Varying Difficulty:** You can vary the difficulty of the pathfinding challenge by:
+    *   Increasing the distance between the start and end words.
+    *   Increasing the dimensionality of the grid.
+    *   Adding obstacles or barriers to the grid (cells that cannot be traversed).
+
+
 ## Contributing
 
 We welcome contributions to the DNDGR benchmark! If you have any ideas for improvements or new features, please feel free to open an issue or submit a pull request.
